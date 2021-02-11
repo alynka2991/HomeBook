@@ -16,3 +16,16 @@ class Category(models.Model):
     category_name = models.CharField(max_length=50, null=False, blank=False, unique=True, help_text="Категория")
     # Поле category_description - описание категории продукта
     category_description = models.TextField(null=True, blank=True, unique=True, help_text="Описание категории")
+
+
+# Модель Category - Категории продуктов
+class Product(models.Model):
+    # Поле product_name - наименование продукта
+    product_name = models.CharField(max_length=50, null=False, blank=False, unique=True, help_text="Продукт")
+    # Поле product_category - категория продукта (ссылка на класс Category)
+    product_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # Поле product_measure - единица измерения продукта (ссылка на класс Measure)
+    product_measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
+    # Поле product_value - остаток продукта
+    product_value = models.IntegerField()
+
