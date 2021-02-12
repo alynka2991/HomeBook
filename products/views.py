@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Category, Measure
+from django.views import generic
 
 
-def index(request):
-    return render(
-        request,
-        'index.html',
-        context={'products': Product.objects.all()}
-    )
+class Index(generic.TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['categories'] = Category.objects.all()
+        return context
