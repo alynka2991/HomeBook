@@ -24,4 +24,6 @@ urlpatterns = [
     path('category/<int:pk>/update/', views.CategoryUpdate.as_view(), name='category-update'),
     path('measure/<int:pk>', views.MeasureDetailView.as_view(), name='measure-detail'),
     path('measure/<int:pk>/update/', views.MeasureUpdate.as_view(), name='measure-update'),
+    path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
+    path('measure/<int:pk>/delete/', views.MeasureDelete.as_view(), name='measure-delete'),
 ]

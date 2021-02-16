@@ -6,6 +6,7 @@
         <li>
             <strong>{{ measure.measure_name }}</strong> ({{ measure.short_measure_name }})
             <a href="{% url 'measure-update' measure.id %}">Редактировать</a>
+            <a href="{% url 'measure-delete' measure.id %}">Удалить</a>
             {% empty %}
         </li>
         Единиц измерения нет

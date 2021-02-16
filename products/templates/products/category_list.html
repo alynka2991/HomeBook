@@ -6,6 +6,7 @@
         <li>
             <strong>{{ category.category_name }}</strong>
             <a href="{% url 'category-update' category.id %}">Редактировать</a>
+            <a href="{% url 'category-delete' category.id %}">Удалить</a>
             {% empty %}
         </li>
         Категорий нет
