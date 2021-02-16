@@ -17,10 +17,6 @@ class CategoryListView(generic.ListView):
     model = Category
 
 
-class MeasureListView(generic.ListView):
-    model = Measure
-
-
 # Дополнительная информация о категории
 class CategoryDetailView(generic.DetailView):
     model = Category
@@ -32,3 +28,18 @@ class CategoryUpdate(PermissionRequiredMixin, UpdateView):
     fields = '__all__'
     permission_required = 'products.can_mark_returned'
 
+
+class MeasureListView(generic.ListView):
+    model = Measure
+
+
+# Дополнительная информация о единице измерения
+class MeasureDetailView(generic.DetailView):
+    model = Measure
+
+
+# изменение данных о единице измерения в БД
+class MeasureUpdate(PermissionRequiredMixin, UpdateView):
+    model = Measure
+    fields = '__all__'
+    permission_required = 'products.can_mark_returned'

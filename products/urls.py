@@ -22,4 +22,6 @@ urlpatterns = [
     path('measures/', views.MeasureListView.as_view(), name='measures'),
     path('category/<int:pk>', views.CategoryDetailView.as_view(), name='category-detail'),
     path('category/<int:pk>/update/', views.CategoryUpdate.as_view(), name='category-update'),
+    path('measure/<int:pk>', views.MeasureDetailView.as_view(), name='measure-detail'),
+    path('measure/<int:pk>/update/', views.MeasureUpdate.as_view(), name='measure-update'),
 ]

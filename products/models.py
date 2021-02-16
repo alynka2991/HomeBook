@@ -13,6 +13,9 @@ class Measure(models.Model):
     def __str__(self):
         return self.short_measure_name
 
+    def get_absolute_url(self):
+        return reverse('measure-detail', args=[str(self.id)])
+
 
 # Модель Category - Категории продуктов
 class Category(models.Model):
