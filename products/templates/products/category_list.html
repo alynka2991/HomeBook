@@ -1,0 +1,13 @@
+{% extends "base_page.html" %}
+
+{% block content %}
+    <h1>Список категорий:</h1>
+    {% for category in category_list %}
+        <li>
+            <strong>{{ category.category_name }}</strong>
+            {% empty %}
+        </li>
+        Категорий нет
+    {% endfor %}
+{% endblock %}
+

@@ -10,3 +10,7 @@ class Index(generic.TemplateView):
         context = super().get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all()
         return context
+
+
+class CategoryListView(generic.ListView):
+    model = Category

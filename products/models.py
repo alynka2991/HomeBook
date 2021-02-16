@@ -10,7 +10,7 @@ class Measure(models.Model):
     measure_name = models.CharField(max_length=50, null=False, blank=False, unique=True, help_text="Единица измерения")
 
     def __str__(self):
-        return self.measure_name
+        return self.short_measure_name
 
 
 # Модель Category - Категории продуктов
