@@ -1,4 +1,4 @@
-from .models import Category, Measure
+from .models import Category, Measure, Product
 from django.views import generic
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -11,6 +11,7 @@ class Index(generic.TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all()
+        context['products'] = Product.objects.filter(product_category__isnull=True)
         return context
 
 

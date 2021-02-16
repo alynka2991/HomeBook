@@ -14,5 +14,11 @@
         {% empty %}
         Категорий нет
     {% endfor %}
+    <strong>Без категории: </strong>
+    <ul class="rounded">
+        {% for product in products %}
+            <li>{{ product.product_name }} ({{product.product_value}} {{product.product_measure}})</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
