@@ -4,9 +4,9 @@
     <h1>Список продуктов:</h1>
     {% for category in categories %}
         <strong>{{ category.category_name }}</strong>
-        <ul class="list-group">
+        <ul class="rounded">
             {% for product in category.product_set.all %}
-                <li class="list-group-item">{{ product.product_name }} ({{product.product_value}} {{product.product_measure}})</li>
+                <li>{{ product.product_name }} ({{product.product_value}} {{product.product_measure}})</li>
                 {% empty %}
                 <li>В этой категории продуктов нет</li>
             {% endfor %}

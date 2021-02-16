@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .models import Product, Category, Measure
+from .models import Category, Measure
 from django.views import generic
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class Index(generic.TemplateView):
@@ -18,3 +19,16 @@ class CategoryListView(generic.ListView):
 
 class MeasureListView(generic.ListView):
     model = Measure
+
+
+# Дополнительная информация о категории
+class CategoryDetailView(generic.DetailView):
+    model = Category
+
+
+# изменение данных о категории в БД
+class CategoryUpdate(PermissionRequiredMixin, UpdateView):
+    model = Category
+    fields = '__all__'
+    permission_required = 'products.can_mark_returned'
+

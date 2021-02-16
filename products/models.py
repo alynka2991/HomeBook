@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Модель Measure - единицы измерения продуктов
@@ -22,6 +23,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+
+    def get_absolute_url(self):
+        return reverse('category-detail', args=[str(self.id)])
 
 
 # Модель Category - Категории продуктов
