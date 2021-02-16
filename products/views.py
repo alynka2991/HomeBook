@@ -14,3 +14,7 @@ class Index(generic.TemplateView):
 
 class CategoryListView(generic.ListView):
     model = Category
+
+
+class MeasureListView(generic.ListView):
+    model = Measure
