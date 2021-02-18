@@ -26,4 +26,6 @@ urlpatterns = [
     path('measure/<int:pk>/update/', views.MeasureUpdate.as_view(), name='measure-update'),
     path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
     path('measure/<int:pk>/delete/', views.MeasureDelete.as_view(), name='measure-delete'),
+    path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
+    path('measure/create/', views.MeasureCreate.as_view(), name='measure-create'),
 ]

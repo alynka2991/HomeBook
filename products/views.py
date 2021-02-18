@@ -1,6 +1,6 @@
 from .models import Category, Measure, Product
 from django.views import generic
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 
@@ -37,6 +37,12 @@ class CategoryDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'products.can_mark_returned'
 
 
+class CategoryCreate(PermissionRequiredMixin, CreateView):
+    model = Category
+    fields = ['category_name', 'category_description']
+    permission_required = 'catalog.can_mark_returned'
+
+
 class MeasureListView(generic.ListView):
     model = Measure
 
@@ -57,4 +63,10 @@ class MeasureDelete(PermissionRequiredMixin, DeleteView):
     model = Measure
     success_url = reverse_lazy('measures')
     permission_required = 'products.can_mark_returned'
+
+
+class MeasureCreate(PermissionRequiredMixin, CreateView):
+    model = Measure
+    fields = ['measure_name', 'short_measure_name']
+    permission_required = 'catalog.can_mark_returned'
 
