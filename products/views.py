@@ -1,8 +1,10 @@
 from .models import Category, Measure, Product
 from django.views import generic
-from django.views.generic.edit import UpdateView, DeleteView,CreateView
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from .forms import ChangeProductValue
 
 
 class Index(generic.TemplateView):
@@ -25,22 +27,19 @@ class CategoryDetailView(generic.DetailView):
 
 
 # изменение данных о категории в БД
-class CategoryUpdate(PermissionRequiredMixin, UpdateView):
+class CategoryUpdate(UpdateView):
     model = Category
     fields = '__all__'
-    permission_required = 'products.can_mark_returned'
 
 
-class CategoryDelete(PermissionRequiredMixin, DeleteView):
+class CategoryDelete(DeleteView):
     model = Category
     success_url = reverse_lazy('categories')
-    permission_required = 'products.can_mark_returned'
 
 
-class CategoryCreate(PermissionRequiredMixin, CreateView):
+class CategoryCreate(CreateView):
     model = Category
     fields = ['category_name', 'category_description']
-    permission_required = 'catalog.can_mark_returned'
 
 
 class MeasureListView(generic.ListView):
@@ -53,20 +52,47 @@ class MeasureDetailView(generic.DetailView):
 
 
 # изменение данных о единице измерения в БД
-class MeasureUpdate(PermissionRequiredMixin, UpdateView):
+class MeasureUpdate(UpdateView):
     model = Measure
     fields = '__all__'
-    permission_required = 'products.can_mark_returned'
 
 
-class MeasureDelete(PermissionRequiredMixin, DeleteView):
+class MeasureDelete(DeleteView):
     model = Measure
     success_url = reverse_lazy('measures')
-    permission_required = 'products.can_mark_returned'
 
 
-class MeasureCreate(PermissionRequiredMixin, CreateView):
+class MeasureCreate(CreateView):
     model = Measure
     fields = ['measure_name', 'short_measure_name']
-    permission_required = 'catalog.can_mark_returned'
 
+
+def change_product_value(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = ChangeProductValue(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            product.product_value = form.cleaned_data['product_value']
+            product.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('index'))
+
+    # If this is a GET (or any other method) create the default form
+    else:
+        default_value = 1
+        form = ChangeProductValue(initial={'product_value': default_value})
+
+    context = {
+        'form': form,
+        'product': product,
+    }
+
+    return render(request, 'products/change_product_value.html', context)

@@ -1,0 +1,15 @@
+{% extends "base_page.html" %}
+
+{% block content %}
+    <h1>Продукт: {{product.product_name}}</h1>
+    <p>Категория: {{product.product_category}}</p>
+    <p>Количество: {{product.product_value}} ({{product.product_measure}})</p>
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
