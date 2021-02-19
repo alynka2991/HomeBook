@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
-from .forms import ChangeProductValue
+from .forms import ChangeProduct
 
 
 class Index(generic.TemplateView):
@@ -67,19 +67,23 @@ class MeasureCreate(CreateView):
     fields = ['measure_name', 'short_measure_name']
 
 
-def change_product_value(request, pk):
+class ProductUpdate(UpdateView):
+    model = Product
+    fields = '__all__'
+'''def change_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        form = ChangeProductValue(request.POST)
+        form = ChangeProduct(request.POST)
 
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
             product.product_value = form.cleaned_data['product_value']
+            product.product_category = form.cleaned_data['product_category']
             product.save()
 
             # redirect to a new URL:
@@ -88,11 +92,12 @@ def change_product_value(request, pk):
     # If this is a GET (or any other method) create the default form
     else:
         default_value = 1
-        form = ChangeProductValue(initial={'product_value': default_value})
+        form = ChangeProduct(initial={'product_value': default_value})
 
     context = {
         'form': form,
         'product': product,
     }
 
-    return render(request, 'products/change_product_value.html', context)
+    return render(request, 'products/change_product.html', context)
+'''

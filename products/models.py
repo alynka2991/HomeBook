@@ -45,3 +45,6 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+    def get_absolute_url(self):
+        return reverse('index')
+
